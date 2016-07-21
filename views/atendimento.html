@@ -26,7 +26,8 @@
                 <td>
                     <div class="row">
                         <a class="waves-effect waves-light btn" href="atendimento/{{ atendimento.id }}">Ver</a>
-                        <button class="waves-effect waves-light btn red">Apagar</button>
+                        <button class="waves-effect waves-light btn red"
+                                ng-click="apagaAtendimento(atendimento)">Apagar</button>
                     </div>
                 </td>
 
@@ -35,9 +36,14 @@
 
         </tbody>
     </table>
-
-</div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red" href="#/novoatendimento">
+        <i class="large material-icons">mode_edit</i>
+    </a>
+    </div>
 <!-- FIM DO CONTEUDO PRINCIPAL -->
+
+
 
 
 <script src="/js/jquery/collapse.js"></script>
