@@ -1,0 +1,44 @@
+<nav>
+<div class="nav-wrapper green darken-1">
+    <a href="" class="brand-logo">Atendimentos</a>
+    <a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+
+</div>
+</nav>
+<div class="progress orange lighten-4" ng-show="atendimento">
+    <div class="indeterminate orange accent-2"></div>
+</div>
+<!-- CONTEUDO PRINCIPAL -->
+<div class="container">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Funcionário</th>
+                <th>Data/Hora</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody ng-repeat="atendimento in atendimentos">
+            <tr>
+                <td>{{ atendimento.funcionario.nome }}</td>
+                <td>{{ atendimento.data_hora }}</td>
+                <td>
+                    <div class="row">
+                        <a class="waves-effect waves-light btn" href="atendimento/{{ atendimento.id }}">Ver</a>
+                        <button class="waves-effect waves-light btn red">Apagar</button>
+                    </div>
+                </td>
+
+            </tr>
+
+
+        </tbody>
+    </table>
+
+</div>
+<!-- FIM DO CONTEUDO PRINCIPAL -->
+
+
+<script src="/js/jquery/collapse.js"></script>
+

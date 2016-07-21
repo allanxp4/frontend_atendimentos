@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-br" ng-app="ambulatorio">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ambulatório</title>
+
+    <!-- jQuery-->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- jQuery custom -->
+
+
+    <!-- Materialize -->
+    <script src="bower_components/materialize/bin/materialize.js"></script>
+    <link rel="stylesheet" href="bower_components/materialize/bin/materialize.css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery/main.js"></script>
+
+
+    <!-- AngularJS base -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-materialize/0.1.9/angular-materialize.min.js"></script>
+
+    <!-- AngularJS custom -->
+
+    <script src="js/app.js"></script>
+    <script src="js/controllers/atendimento-controller.js"></script>
+    <script src="js/controllers/atestado-controller.js"></script>
+    <script src="js/controllers/home-controller.js"></script>
+    <script src="js/services/services.js"></script>
+
+
+</head>
+<body>
+
+    <div class="content">
+
+    <ng-view></ng-view>
+
+    </div>
+
+    <ul class="side-nav fixed" id="mobile">
+        <li><a href="#/home" class="waves-effect">Home</a></li>
+        <li><a href="#/atendimento" class="waves-effect">Atendimentos</a></li>
+        <li><a href="#/atestado" class="waves-effect">Atestados</a></li>
+
+    </ul>
+
+
+
+
+</body>
+</html>

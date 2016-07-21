@@ -1,0 +1,31 @@
+.brand-logo {
+    margin-left: 0.5em;
+}
+
+.body {
+
+}
+
+.progress {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.content {
+    padding-left: 150px;
+    background-color: #FAFAFA;
+}
+
+.container {
+
+}
+
+@media only screen and (max-width : 992px) {
+    .content {
+        padding-left: 0;
+
+    }
+    .brand-logo {
+        margin-left: 0.5em;
+    }
+}
