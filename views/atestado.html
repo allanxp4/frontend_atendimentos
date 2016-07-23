@@ -5,5 +5,33 @@
 
 </div>
 </nav>
-{{string}}
+
+<div class="container">
+    <div class="card-panel">
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Data</th>
+                    <th>Tempo total</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="atestado in atestados">
+                <tr>
+                    <td>{{ atestado.funcionario.nome }}</td>
+                    <td>{{ atestado.data_atestado | date: 'shortDate' }}</td>
+                    <td>{{ atestado.hora_atestado }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large red" href="#modalNovoAtestado" modal>
+            <i class="large material-icons">mode_edit</i>
+        </a>
+    </div>
+
+</div>
 <script src="/js/jquery/collapse.js"></script>

@@ -1,4 +1,5 @@
-var app = angular.module('ambulatorio', ['ngRoute', 'servicos', 'ui.materialize'])
+var app = angular.module('ambulatorio', ['ngRoute', 'servicos', 'ui.materialize', 'ngMask', 'ui.select', 'ngSanitize',
+    'ngAnimate'])
     .config(function($routeProvider){
         $routeProvider.when('/atendimento', {
             templateUrl: '/views/atendimento.html',

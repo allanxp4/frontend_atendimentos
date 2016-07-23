@@ -19,6 +19,72 @@
 .container {
 
 }
+/*
+@keyframes ng_in {
+    0% {
+        transform: translate3d(90px, 0, 0);
+        opacity: 0.0;
+    }
+    100% {
+        transform: translate3d(0px, 0, 0);
+        opacity: 1.0;
+    }
+}
+
+@keyframes ng_out{
+    0% {
+        transform: translate3d(0px, 0, 0);
+        opacity: 1.0;
+    }
+    100% {
+        transform: translate3d(90px, 0, 0);
+        opacity: 0.0;
+    }
+}
+
+@keyframes ng_move {
+    0% {
+        transform: translate3d(0, 200px, 0);
+
+    }
+    100% {
+        transform: translate3d(0, 0px, 0);
+    }
+
+}
+
+@keyframes card-in {
+    0% {
+        transform: translate3d(0, 400px, 0);
+
+    }
+    100% {
+        transform: translate3d(0, 0px, 0);
+    }
+
+}
+
+
+.ng-enter . {
+    animation-name: ng_in;
+    animation-duration: 0.5s;
+}
+.ng-leave {
+    animation-name: ng_out;
+    animation-duration: 0.5s;
+}
+.ng-move {
+    animation-name: ng_move;
+    animation-duration: 0.5s;
+}
+
+
+.card-panel {
+    animation-name: card-in;
+    animation-duration: 0.5s;
+
+}
+*/
 
 @media only screen and (max-width : 992px) {
     .content {

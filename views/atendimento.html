@@ -10,41 +10,103 @@
 </div>
 <!-- CONTEUDO PRINCIPAL -->
 <div class="container">
+    <div class="card-panel">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Funcionário</th>
-                <th>Data/Hora</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody ng-repeat="atendimento in atendimentos">
-            <tr>
-                <td>{{ atendimento.funcionario.nome }}</td>
-                <td>{{ atendimento.data_hora }}</td>
-                <td>
-                    <div class="row">
-                        <a class="waves-effect waves-light btn" href="atendimento/{{ atendimento.id }}">Ver</a>
-                        <button class="waves-effect waves-light btn red"
-                                ng-click="apagaAtendimento(atendimento)">Apagar</button>
-                    </div>
-                </td>
+        <table>
+            <thead>
+                <tr>
+                    <th>Funcionário</th>
+                    <th>Data</th>
+                    <th>Hora</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody ng-repeat="atendimento in atendimentos">
+                <tr>
+                    <td>{{ atendimento.funcionario.nome }}</td>
+                    <td>{{ atendimento.date | date: 'shortDate'}}</td>
+                    <td>{{ atendimento.time | date: 'shortTime'}}</td>
 
-            </tr>
+                    <td>
+                        <div class="row">
+                            <a class="waves-effect waves-light btn" href="atendimento/{{ atendimento.id }}">Ver</a>
+                            <button class="waves-effect waves-light btn red"
+                                    ng-click="apagaAtendimento(atendimento)">Apagar</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
-
-        </tbody>
-    </table>
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large red" href="#/novoatendimento">
+    <a class="btn-floating btn-large red" href="#modalNovoAtendimento" modal>
         <i class="large material-icons">mode_edit</i>
     </a>
     </div>
+
+    <div id="modalNovoAtendimento" class="modal" style="width: 80%;">
+        <div class="col s12">
+
+            <div class="modal-content">
+                <h4>Novo Atendimento</h4>
+                <div style="padding-top: 0.5em;">
+                    <div class="row">
+                        <ui-select ng-model="atendimento.funcionario">
+                            <!-- TODO: fazer esse select funcionar -->
+                            <ui-select-match>
+                                <span ng-bind="$select.selected.id"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (funcionarios | filter: $select.search) track by item.id">
+                                <span ng-bind="item.name"></span>
+                            </ui-select-choices>
+                        </ui-select>
+                        <div input-field class="col s12 m4 l2" >
+                            <input ng-model="atendimento.data" type="text" mask="39/19/2999">
+                            <label>Data</label>
+                        </div>
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.hora" type="text" mask="29:59">
+                            <label>Hora</label>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.pressao" type="text" mask="29x29">
+                            <label>Pressão</label>
+                        </div>
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.pulso" type="text" mask="999">
+                            <label>Pulso</label>
+                        </div>
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.temperatura" type="text" mask="999">
+                            <label>Temp</label>
+                        </div>
+                        <div input-field class="col s12 m3 l4" >
+                            <textarea ng-model="atendimento.queixa" class="materialize-textarea" length="5000"></textarea>
+                            <label>Queixa</label>
+                        </div>
+                        <div input-field class="col s12 m3 l5" >
+                            <textarea ng-model="atendimento.conduta" class="materialize-textarea" length="5000"></textarea>
+                            <label>Conduta</label>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="novoAtendimento()" class=" modal-action modal-close waves-effect btn-flat">Salvar</a>
+            <a class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
+        </div>
+    </div>
+</div>
 <!-- FIM DO CONTEUDO PRINCIPAL -->
 
 
 
 
 <script src="/js/jquery/collapse.js"></script>
-

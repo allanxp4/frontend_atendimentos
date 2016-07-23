@@ -10,14 +10,20 @@ angular.module('servicos', ['ngResource'])
                 method: 'PUT'
             }
         });
-
     })
 
     .factory('resourceFuncionario', function($resource){
-        return $resource(resurl + '/funcionario', null, {
+        return $resource(resurl + '/funcionario/:id', null, {
             update: {
                 method: 'PUT'
             }
         });
+    })
 
-    });
+    .factory('resourceAtestado', function($resource){
+        return $resource(resurl + '/atestado:id', null, {
+            update: {
+                method: 'PUT'
+            }
+        });
+    })
