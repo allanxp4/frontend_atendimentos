@@ -5,7 +5,7 @@
 
 </div>
 </nav>
-<div class="progress orange lighten-4" ng-show="atendimento">
+<div class="progress orange lighten-4" ng-hide="atendimentos">
     <div class="indeterminate orange accent-2"></div>
 </div>
 <!-- CONTEUDO PRINCIPAL -->
@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody ng-repeat="atendimento in atendimentos">
-                <tr>
+                <tr class="animate-data">
                     <td>{{ atendimento.funcionario.nome }}</td>
                     <td>{{ atendimento.date | date: 'shortDate'}}</td>
                     <td>{{ atendimento.time | date: 'shortTime'}}</td>
@@ -52,21 +52,20 @@
                 <h4>Novo Atendimento</h4>
                 <div style="padding-top: 0.5em;">
                     <div class="row">
-                        <ui-select ng-model="atendimento.funcionario">
-                            <!-- TODO: fazer esse select funcionar -->
-                            <ui-select-match>
-                                <span ng-bind="$select.selected.id"></span>
-                            </ui-select-match>
-                            <ui-select-choices repeat="item in (funcionarios | filter: $select.search) track by item.id">
-                                <span ng-bind="item.name"></span>
-                            </ui-select-choices>
-                        </ui-select>
-                        <div input-field class="col s12 m4 l2" >
-                            <input ng-model="atendimento.data" type="text" mask="39/19/2999">
+                        <div input-field class="col s12 m3 l7">
+                            <input type="text" mask="39/19/2999" readonly value="{{ display.func }}">
+                            <label>Nome</label>
+                        </div>
+                        <div input-field class="col s12 m3 l2">
+                            <a  href="#selecionaFuncionario"
+                                    class="btn-block btn" modal>Buscar</a>
+                        </div>
+                        <div input-field class="col s12 m3 l2" >
+                            <input ng-model="atendimento.date" type="text" mask="39/19/2999">
                             <label>Data</label>
                         </div>
                         <div input-field class="col s12 m3 l1" >
-                            <input ng-model="atendimento.hora" type="text" mask="29:59">
+                            <input ng-model="atendimento.time" type="text" mask="29:59">
                             <label>Hora</label>
                         </div>
                     </div>
@@ -103,6 +102,32 @@
             <a class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
         </div>
     </div>
+
+    <!-- Modal Structure -->
+    <div id="selecionaFuncionario" class="modal" style="width: 40%">
+        <div class="modal-content">
+            <div input-field>
+                <input ng-model="pesq.termo" type="text" ng-model-options="{'debounce': 200}">
+                <label>Pesquisar Funcionários</label>
+            </div>
+            <table class="bordered">
+                <thead>
+                    <tr>
+                        <th>Funcionario</th>
+                        <th>Selecionar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="funcionario in funcionarios | filter: pesq.termo">
+                        <td>{{ funcionario.nome }}</td>
+                        <td style="width: 20%"><a ng-click="atendimento.funcionario_id = funcionario.id;
+                        display.func = funcionario.nome" class="btn waves-effect waves-light modal-close">Selecionar</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 <!-- FIM DO CONTEUDO PRINCIPAL -->
 

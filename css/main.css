@@ -19,7 +19,11 @@
 .container {
 
 }
-/*
+
+.btn-no-padding {
+    width: 40px;
+}
+
 @keyframes ng_in {
     0% {
         transform: translate3d(90px, 0, 0);
@@ -65,17 +69,27 @@
 }
 
 
-.ng-enter . {
+tbody .ng-enter {
     animation-name: ng_in;
     animation-duration: 0.5s;
 }
-.ng-leave {
+tbody .ng-leave {
     animation-name: ng_out;
     animation-duration: 0.5s;
 }
-.ng-move {
+tbody .ng-move {
     animation-name: ng_move;
     animation-duration: 0.5s;
+}
+
+div .row {
+    height: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+td  {
+    padding: 0px;
 }
 
 
@@ -84,7 +98,7 @@
     animation-duration: 0.5s;
 
 }
-*/
+
 
 @media only screen and (max-width : 992px) {
     .content {

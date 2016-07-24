@@ -5,7 +5,7 @@ resurl = 'http://localhost:8000';
 
 angular.module('servicos', ['ngResource'])
     .factory('resourceAtendimento', function($resource){
-        return $resource(resurl + '/atendimento/:id', null, {
+        return $resource(resurl + '/atendimento', null, {
             update: {
                 method: 'PUT'
             }
