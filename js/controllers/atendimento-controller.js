@@ -38,9 +38,8 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
     };
 
 
-    $scope.novoAtendimento = function(){
-        console.log($scope.atendimento);
-        resourceAtendimento.save('$scope.atendimento', function(){
+    $scope.novoAtendimento = function(atendimento){
+        resourceAtendimento.save(angular.toJson(atendimento), function(){
             Materialize.toast('Atendimento salvo', 2000);
         }, function(erro){
             Materialize.toast('Erro ao salvar atendimento', 8000);
