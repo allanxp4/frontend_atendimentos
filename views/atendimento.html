@@ -11,6 +11,15 @@
 <!-- CONTEUDO PRINCIPAL -->
 <div class="container">
     <div class="card-panel">
+        <div class="row">
+            <div input-field class="col s12 m12 l4">
+                <a href="#modalNovoAtendimento" class="btn btn-block" modal>Novo</a>
+            </div>
+            <div input-field class="col s12 m12 l8">
+                <input ng-model="pesq.func" type="text" ng-model-options="{'debounce': 200}">
+                <label>Pesquisar Atendimentos</label>
+            </div>
+        </div>
 
         <table>
             <thead>
@@ -21,7 +30,7 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="atendimento in atendimentos">
+            <tbody ng-repeat="atendimento in atendimentos | filter: pesq.func">
                 <tr class="animate-data">
                     <td>{{ atendimento.funcionario.nome }}</td>
                     <td>{{ atendimento.date | date: 'shortDate'}}</td>
@@ -37,12 +46,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large red" href="#modalNovoAtendimento" modal>
-        <i class="large material-icons">mode_edit</i>
-    </a>
     </div>
 
     <div id="modalNovoAtendimento" class="modal" style="width: 80%;">
@@ -104,11 +107,16 @@
     </div>
 
     <!-- Modal Structure -->
-    <div id="selecionaFuncionario" class="modal" style="width: 40%">
+    <div id="selecionaFuncionario" class="modal" style="max-width: 500px">
         <div class="modal-content">
-            <div input-field>
-                <input ng-model="pesq.termo" type="text" ng-model-options="{'debounce': 200}">
-                <label>Pesquisar Funcionários</label>
+            <div class="row">
+                <div input-field class="col s12 m12 l4">
+                    <a href="#novoFuncionario" class="btn btn-block" modal>Novo</a>
+                </div>
+                <div input-field class="col s12 m12 l8">
+                    <input ng-model="pesq.termo" type="text" ng-model-options="{'debounce': 200}">
+                    <label>Pesquisar Funcionários</label>
+                </div>
             </div>
             <table class="bordered">
                 <thead>
@@ -117,14 +125,37 @@
                         <th>Selecionar</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr ng-repeat="funcionario in funcionarios | filter: pesq.termo">
+                <tbody id="in-only">
+                    <tr ng-repeat="funcionario in funcionarios | filter: pesq.termo | limitTo : 5 : pagina">
                         <td>{{ funcionario.nome }}</td>
                         <td style="width: 20%"><a ng-click="atendimento.funcionario_id = funcionario.id;
                         display.func = funcionario.nome" class="btn waves-effect waves-light modal-close">Selecionar</a></td>
                     </tr>
                 </tbody>
+
             </table>
+
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="novoFuncionario" class="modal" style="max-width: 400px;">
+        <div class="modal-content">
+            <h4>Novo Funcionário</h4>
+            <input-field>
+                <input type="text" ng-model="funcionario.nome">
+                <label>Nome</label>
+            </input-field>
+            <input-field>
+                <input type="text" ng-model="funcionario.identificacao">
+                <label>Identificação</label>
+            </input-field>
+        </div>
+        <div class="modal-footer">
+
+            <a href="" ng-click="novoFuncionario(funcionario)" class=" modal-action modal-close waves-effect waves-green btn-flat">Salvar</a>
+            <a class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
+
         </div>
     </div>
 

@@ -7,18 +7,37 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
     $scope.display = { func: 'Selecione um funcionario'};
     //campo de pesquisa do funcionario
     $scope.pesq = {};
+    $scope.funcionario = {};
+    $scope.nfunc = 0;
+
+    var carregaAtendimentos = function(){
+        resourceAtendimento.query(function(data){
+            $scope.atendimentos = data;
+        }, function(erro){
+            console.log(erro);
+            Materialize.toast('Erro ao carregar os atendimentos', 8000);
+        });
+    };
+
+    var carregaFuncionarios = function(){
+        resourceFuncionario.query(function(data){
+            $scope.funcionarios = data;
+            $scope.nfunc = $scope.funcionarios.length;
+        }, function(erro){
+            console.log(erro);
+            Materialize.toast('Erro ao carregar os funcionarios', 8000);
+        });
+    };
+
+    carregaAtendimentos();
+    carregaFuncionarios();
 
     $scope.mudaFuncionario = function(func){
         $scope.funcdisplay = func.nome;
         $scope.atendimento.funcionario_id = func.id;
     };
 
-    resourceAtendimento.query(function(data){
-        $scope.atendimentos = data;
-    }, function(erro){
-        console.log(erro);
-        Materialize.toast('Erro ao carregar os atendimentos', 8000);
-    });
+
 
     resourceFuncionario.query(function(data){
         $scope.funcionarios = data;
@@ -41,8 +60,19 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
     $scope.novoAtendimento = function(atendimento){
         resourceAtendimento.save(angular.toJson(atendimento), function(){
             Materialize.toast('Atendimento salvo', 2000);
+            carregaAtendimentos();
         }, function(erro){
             Materialize.toast('Erro ao salvar atendimento', 8000);
+            console.log(erro);
+        });
+    };
+
+    $scope.novoFuncionario = function(funcionario){
+        resourceFuncionario.save(angular.toJson(funcionario), function(){
+            Materialize.toast('Funcionario salvo', 2000);
+            carregaFuncionarios();
+        }, function(erro){
+            Materialize.toast('Erro ao criar funcionário');
             console.log(erro);
         });
     };
