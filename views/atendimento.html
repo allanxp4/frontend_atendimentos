@@ -30,7 +30,7 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="atendimento in atendimentos | filter: pesq.func">
+            <tbody ng-repeat="atendimento in atendimentos | filter: pesq.func | limitTo : 5 : paginaatend">
                 <tr class="animate-data">
                     <td>{{ atendimento.funcionario.nome }}</td>
                     <td>{{ atendimento.date | date: 'shortDate'}}</td>
@@ -46,6 +46,20 @@
                 </tr>
             </tbody>
         </table>
+        <ul class="pagination" style="display:flex;justify-content:center;align-items:center;">
+            <li class="waves-effect">
+                <a ng-click="paginaatend > 6 ? paginaatend = paginaatend - 5 : paginaatend = 0">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
+            <li class="disabled"><a href="">{{ (paginaatend / 5) + 1 }}</a></li>
+            <li class="waves-effect">
+                <!--TODO: remover a paginaatend em excesso-->
+                <a ng-click="paginaatend < natend ? paginaatend = paginaatend + 5 : null">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
+        </ul>
     </div>
 
     <div id="modalNovoAtendimento" class="modal" style="width: 80%;">
@@ -125,15 +139,29 @@
                         <th>Selecionar</th>
                     </tr>
                 </thead>
-                <tbody id="in-only">
-                    <tr ng-repeat="funcionario in funcionarios | filter: pesq.termo | limitTo : 5 : pagina">
+                <tbody id="in-only" ng-repeat="funcionario in funcionarios | filter: pesq.termo | limitTo : 5 : pagina">
+                    <tr>
                         <td>{{ funcionario.nome }}</td>
                         <td style="width: 20%"><a ng-click="atendimento.funcionario_id = funcionario.id;
                         display.func = funcionario.nome" class="btn waves-effect waves-light modal-close">Selecionar</a></td>
                     </tr>
                 </tbody>
-
             </table>
+            <ul class="pagination" style="display:flex;justify-content:center;align-items:center;">
+                <li class="waves-effect">
+                    <a ng-click="pagina > 6 ? pagina = pagina - 5 : pagina = 0">
+                        <i class="material-icons">chevron_left</i>
+                    </a>
+                </li>
+                <li class="disabled"><a href="">{{ (pagina / 5) + 1 }}</a></li>
+                <li class="waves-effect">
+                    <!--TODO: remover a pagina em excesso-->
+                    <a ng-click="pagina < nfunc ? pagina = pagina + 5 : null">
+                        <i class="material-icons">chevron_right</i>
+                    </a>
+                </li>
+            </ul>
+
 
         </div>
     </div>

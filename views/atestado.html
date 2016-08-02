@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ atestado.funcionario.nome }}</td>
                     <td>{{ atestado.data_atestado | date: 'shortDate' }}</td>
-                    <td>{{ atestado.hora_atestado }}</td>
+                    <td>{{ atestado.hora_inicial | date: 'shortTime'}}</td>
                 </tr>
             </tbody>
         </table>
@@ -32,6 +32,8 @@
             <i class="large material-icons">mode_edit</i>
         </a>
     </div>
+
+
 
 </div>
 <script src="/js/jquery/collapse.js"></script>

@@ -9,10 +9,13 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
     $scope.pesq = {};
     $scope.funcionario = {};
     $scope.nfunc = 0;
+    $scope.pagina = 0;
+    $scope.paginaatend = 0;
 
     var carregaAtendimentos = function(){
         resourceAtendimento.query(function(data){
             $scope.atendimentos = data;
+            $scope.natend = $scope.atendimentos.length;
         }, function(erro){
             console.log(erro);
             Materialize.toast('Erro ao carregar os atendimentos', 8000);
