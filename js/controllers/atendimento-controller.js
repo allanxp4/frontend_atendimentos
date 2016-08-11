@@ -4,7 +4,7 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
     $scope.string = 'view1';
     $scope.atendimento = {};
      //objeto do atendimento
-    $scope.display = { func: 'Selecione um funcionario'};
+    $scope.display = { func: 'Selecione um funcionario', cid: 'Selecione um CID' };
     //campo de pesquisa do funcionario
     $scope.pesq = {};
     $scope.funcionario = {};
@@ -39,15 +39,6 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
         $scope.funcdisplay = func.nome;
         $scope.atendimento.funcionario_id = func.id;
     };
-
-
-
-    resourceFuncionario.query(function(data){
-        $scope.funcionarios = data;
-    }, function(erro){
-        console.log(erro);
-        Materialize.toast('Erro ao carregar os funcionarios', 8000);
-    });
 
     $scope.apagaAtendimento = function(atendimento){
         resourceAtendimento.remove({id: atendimento.id}, function(){

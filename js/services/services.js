@@ -27,3 +27,7 @@ angular.module('servicos', ['ngResource'])
             }
         });
     })
+
+    .factory('resourceCid', function($resource){
+        return $resource(resurl + '/cid', null);
+    })
