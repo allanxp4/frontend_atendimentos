@@ -8,29 +8,143 @@
 
 <div class="container">
     <div class="card-panel">
-        <table>
+        <div class="row">
+            <div input-field class="col s12 m12 l4">
+                <a href="#modalNovoAtestado" class="btn btn-block" modal>Novo</a>
+            </div>
+            <div input-field class="col s12 m12 l8">
+                <input ng-model="pesq.func" type="text" ng-model-options="{'debounce': 200}">
+                <label>Pesquisar Atestados</label>
+            </div>
+        </div>
+
+        <table class="bordered">
             <thead>
                 <tr>
                     <th>Funcionário</th>
-                    <th>Data</th>
+                    <th>Data do Atestado</th>
+                    <th>Início</th>
                     <th>Tempo total</th>
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody ng-repeat="atestado in atestados">
+            <tbody ng-repeat="atestado in atestados | filter: pesq.func | orderBy: sortByDate(atestado.data_inicial) | limitTo : 5 : paginaatest">
                 <tr>
                     <td>{{ atestado.funcionario.nome }}</td>
                     <td>{{ atestado.data_atestado | date: 'shortDate' }}</td>
-                    <td>{{ atestado.hora_inicial | date: 'shortTime'}}</td>
+                    <td>{{ atestado.data_inicial | date: 'shortDate' }}</td>
+                    <td>{{ displayTempo(atestado) }} Dias</td>
+                    <td>
+                        <div class="row">
+                            <a class="waves-effect waves-light btn" ng-click="mudaAtestado(atestado)">Ver</a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <ul class="pagination" style="display:flex;justify-content:center;align-items:center;">
+            <li class="waves-effect">
+                <a ng-click="paginaatest > 6 ? paginaatest = paginaatest - 5 : paginaatest = 0">
+                    <i class="material-icons">chevron_left</i>
+                </a>
+            </li>
+            <li class="disabled"><a href="">{{ (paginaatest / 5) + 1 }}</a></li>
+            <li class="waves-effect">
+                <!--TODO: remover a paginaatest em excesso-->
+                <a ng-click="paginaatest < natest ? paginaatest = paginaatest + 5 : null">
+                    <i class="material-icons">chevron_right</i>
+                </a>
+            </li>
+        </ul>
     </div>
 
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large red" href="#modalNovoAtestado" modal>
-            <i class="large material-icons">mode_edit</i>
-        </a>
+    <div id="modalEditaAtestado" class="modal" style="width: 80%;">
+        <div class="col s12">
+
+            <div class="modal-content">
+                <h4>Ver Atestado</h4>
+                <div style="padding-top: 0.5em;">
+                    <div class="row">
+                        <div input-field class="col s12 m4 l8">
+                            <input type="text" readonly value="{{ display.func }}">
+                            <label>Nome</label>
+                        </div>
+                        <div input-field class="col s12 m3 l2">
+                            <a  href="#selecionaFuncionario"
+                                class="btn-block btn" modal>Buscar</a>
+                        </div>
+                        <div input-field class="col s12 m5 l2" >
+                            <input ng-model="atestado.data_atestado" type="text" mask="39/19/2999">
+                            <label>Data Atestado</label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div input-field class="col s12 m6 l5" >
+                            <input ng-model="atestado.nome_medico" type="text">
+                            <label>Nome do Médico</label>
+                        </div>
+                        <div input-field class="col s12 m6 l3" >
+                            <input ng-model="atestado.crm" type="text">
+                            <label>CRM</label>
+                        </div>
+                        <div input-field class="col s12 m6 l4" >
+                            <input ng-model="atestado.especialidade" type="text">
+                            <label>Especialidade</label>
+                        </div>
+                        <div input-field class="col s12 m3 l4">
+                            <input type="text" readonly value="{{ display.cid }}">
+                            <label></label>
+                        </div>
+                        <div input-field class="col s12 m3 l2">
+                            <a  href="#selecionaCid"
+                                class="btn-block btn" modal>Buscar</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div input-field class="col s12 m3 l2">
+                            <select class="" ng-model="at.tipo" material-select watch>
+                                <option ng-repeat="tipo in at.tipos">{{tipo.nome}}</option>
+                            </select>
+                        </div>
+
+                        <div ng-show="at.tipo == 'dias'">
+                            <div input-field class="col s12 m3 l2">
+                                <input ng-model="atestado.data_inicial" type="date">
+                            </div>
+                            <div input-field class="col s12 m3 l2" >
+
+                                <input ng-model="atestado.data_final" type="date">
+                            </div>
+                        </div>
+
+                        <div ng-show="at.tipo == 'horas'">
+                            <div input-field class="col s12 m3 l1" >
+                                <input ng-model="atestado.hora_final" type="text" mask="29:59">
+                                <label>Hora</label>
+                            </div>
+                            <div input-field class="col s12 m3 l1" >
+                                <input ng-model="atestado.hora_inicial" type="text" mask="29:59">
+                                <label>Hora</label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div input-field class="col s12 m8 l8" >
+                            <textarea ng-model="atestado.observacoes" class="materialize-textarea" length="5000"></textarea>
+                            <label>Observações</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="editaAtestado(atestado)" class=" modal-action modal-close waves-effect btn-flat">Salvar</a>
+            <a class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
+        </div>
     </div>
 
     <div id="modalNovoAtestado" class="modal" style="width: 80%;">
