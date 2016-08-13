@@ -13,10 +13,19 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
     $scope.pagina = 0;
     $scope.paginaatest = 0;
 
+    var atestado_old = {};
+
     var carregaAtestados = function() {
         resourceAtestado.query(function (data) {
+            $scope.natest = data.length;
+            for(var v = 0; v < $scope.natest; v++){
+                var i = data[v].data_inicial.split(/[-]/);
+                var f = data[v].data_final.split(/[-]/);
+
+                data[v].data_inicial = new Date(Date.UTC(i[0], i[1]-1, i[2], 3, 0, 0));
+                data[v].data_final = new Date(Date.UTC(f[0], f[1]-1, f[2], 3, 0, 0));
+            }
             $scope.atestados = data;
-            $scope.natest = $scope.atestados.length;
         }, function (erro) {
             console.log(erro);
             Materialize.toast('Erro ao carregar atestados', 8000);
@@ -65,7 +74,7 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
             return (final - inicial)/1000/60/60/24;
         }
         else{
-
+            
         }
     };
 
@@ -109,21 +118,27 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
     };
 
     $scope.mudaAtestado = function(atestado){
+        atestado_old = atestado;
+
         var findCid = function(id){
-            for(var i = 0; i < (numcids = $scope.cids.length); i++){
+            for(var i = 0; i < $scope.cids.length; i++){
                 if($scope.cids[id].id == id){
                     return $scope.cids[id].codigo;
                 }
             }
         };
 
-        atestado.data_inicial = new Date(atestado.data_inicial);
-        atestado.data_final = new Date(atestado.data_final);
+        console.log(atestado);
         $scope.atestado = atestado;
         $scope.display.func = atestado.funcionario.nome;
         $scope.display.cid = findCid(atestado.cid_id);
         $('#modalEditaAtestado').openModal();
 
     };
+
+    $scope.fechaAtestado = function(atestado){
+        $('#modalEditaAtestado').closeModal();
+        $scope.atestado = {};
+    }
 
 });

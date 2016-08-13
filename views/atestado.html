@@ -5,7 +5,9 @@
 
 </div>
 </nav>
-
+<div class="progress orange lighten-4" ng-hide="atestados">
+    <div class="indeterminate orange accent-2"></div>
+</div>
 <div class="container">
     <div class="card-panel">
         <div class="row">
@@ -143,7 +145,7 @@
         </div>
         <div class="modal-footer">
             <a ng-click="editaAtestado(atestado)" class=" modal-action modal-close waves-effect btn-flat">Salvar</a>
-            <a class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
+            <a ng-click="fechaAtestado(atestado)" class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
         </div>
     </div>
 
