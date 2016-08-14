@@ -38,9 +38,7 @@
 
                     <td>
                         <div class="row">
-                            <a class="waves-effect waves-light btn" href="atendimento/{{ atendimento.id }}">Ver</a>
-                            <button class="waves-effect waves-light btn red"
-                                    ng-click="apagaAtendimento(atendimento)">Apagar</button>
+                            <a class="waves-effect waves-light btn" ng-click="abreAtendimento(atendimento)">Ver</a>
                         </div>
                     </td>
                 </tr>
@@ -78,8 +76,7 @@
                                     class="btn-block btn" modal>Buscar</a>
                         </div>
                         <div input-field class="col s12 m3 l2" >
-                            <input ng-model="atendimento.date" type="text" mask="39/19/2999">
-                            <label>Data</label>
+                            <input ng-model="atendimento.date" type="date">
                         </div>
                         <div input-field class="col s12 m3 l1" >
                             <input ng-model="atendimento.time" type="text" mask="29:59">
@@ -117,6 +114,63 @@
         <div class="modal-footer">
             <a ng-click="novoAtendimento(atendimento)" class=" modal-action modal-close waves-effect btn-flat">Salvar</a>
             <a class=" modal-action modal-close waves-effect btn-flat">Cancelar</a>
+        </div>
+    </div>
+
+    <div id="modalEditaAtendimento" class="modal" style="width: 80%;">
+        <div class="col s12">
+
+            <div class="modal-content">
+                <h4>Ver Atendimento</h4>
+                <div style="padding-top: 0.5em;">
+                    <div class="row">
+                        <div input-field class="col s12 m3 l7">
+                            <input type="text" mask="39/19/2999" readonly value="{{ display.func }}">
+                            <label>Nome</label>
+                        </div>
+                        <div input-field class="col s12 m3 l2">
+                            <a  href="#selecionaFuncionario"
+                                class="btn-block btn" modal>Buscar</a>
+                        </div>
+                        <div input-field class="col s12 m3 l2" >
+                            <input ng-model="atendimento.date" type="date">
+                        </div>
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.time" type="text" mask="29:59">
+                            <label>Hora</label>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.pressao" type="text" mask="29x29">
+                            <label>Pressão</label>
+                        </div>
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.pulso" type="text" mask="999">
+                            <label>Pulso</label>
+                        </div>
+                        <div input-field class="col s12 m3 l1" >
+                            <input ng-model="atendimento.temperatura" type="text" mask="999">
+                            <label>Temp</label>
+                        </div>
+                        <div input-field class="col s12 m3 l4" >
+                            <textarea ng-model="atendimento.queixa" class="materialize-textarea" length="5000"></textarea>
+                            <label>Queixa</label>
+                        </div>
+                        <div input-field class="col s12 m3 l5" >
+                            <textarea ng-model="atendimento.conduta" class="materialize-textarea" length="5000"></textarea>
+                            <label>Conduta</label>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a ng-click="atualizaAtendimento(atendimento)" class=" modal-action modal-close waves-effect btn-flat">Salvar</a>
+            <a ng-click="fechaAtendimento();" class="modal-action waves-effect btn-flat">Cancelar</a>
         </div>
     </div>
 

@@ -14,6 +14,11 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
 
     var carregaAtendimentos = function(){
         resourceAtendimento.query(function(data){
+            $scope.natend = data.length;
+            for(i = 0; i < $scope.natend; i++){
+                var d = data[i].date.split(/[-]/);
+                data[i].date = new Date(Date.UTC(d[0], d[1]-1, d[2], 3, 0, 0));
+            }
             $scope.atendimentos = data;
             $scope.natend = $scope.atendimentos.length;
         }, function(erro){
@@ -34,6 +39,16 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
 
     carregaAtendimentos();
     carregaFuncionarios();
+
+    $scope.abreAtendimento = function(atendimento){
+        $scope.atendimento = atendimento;
+        $('#modalEditaAtendimento').openModal();
+    };
+
+    $scope.fechaAtendimento = function(){
+        $scope.atendimento = {};
+        $('#modalEditaAtendimento').closeModal();
+    };
 
     $scope.mudaFuncionario = function(func){
         $scope.funcdisplay = func.nome;
@@ -57,6 +72,17 @@ app.controller('AtendimentoController', function($scope, resourceAtendimento, re
             carregaAtendimentos();
         }, function(erro){
             Materialize.toast('Erro ao salvar atendimento', 8000);
+            console.log(erro);
+        });
+    };
+
+    $scope.atualizaAtendimento = function(atendimento){
+        resourceAtendimento.update(angular.toJson(atendimento), function(){
+            //atestado.data = atestado;
+            Materialize.toast('Atendimento atualizado', 2000);
+            carregaAtendimentos();
+        }, function(erro){
+            Materialize.toast('Erro ao atualizar atendimento', 8000);
             console.log(erro);
         });
     };

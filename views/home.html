@@ -1,11 +1,31 @@
 <nav>
     <div class="nav-wrapper green darken-1">
-        <a href="" class="brand-logo">Home</a>
+        <a href="" class="brand-logo">Sistema de Gestão de Atestados</a>
         <a href="" data-activates="mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
 </nav>
 
 <div class="container">
-    <h1>batata</h1>
+    <div ng-hide="logado" class="row">
+        <div class="col s12 m5">
+            <div class="card-panel">
+                <h4>Login</h4>
+                <input-field>
+                    <input type="text" ng-model="auth.email">
+                    <label>Login</label>
+                </input-field>
+                <input-field>
+                    <input type="password" ng-model="auth.password">
+                    <label>Senha</label>
+                </input-field>
+                <input-field>
+                    <button class="btn btn-block teal" ng-click="logar()">Logar</button>
+                </input-field>
+            </div>
+        </div>
+    </div>
+    <div ng-show="logado">
+        <h3>Selecione uma opção ao lado para começar</h3>
+    </div>
 </div>
 <script src="/js/jquery/collapse.js"></script>

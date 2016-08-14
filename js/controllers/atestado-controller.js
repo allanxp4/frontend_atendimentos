@@ -71,10 +71,28 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
         if(atestado.tipo == 'dias'){
             var final = new Date(atestado.data_final);
             var inicial = new Date(atestado.data_inicial);
-            return (final - inicial)/1000/60/60/24;
+            return (final - inicial)/1000/60/60/24 + " Dias";
         }
         else{
+            var i = atestado.hora_inicial.split(/[:]/);
+            var f = atestado.hora_final.split(/[:]/);
+
+            var horas = f[0] - i[0];
+            var minutos = f[1] - i[1];
             
+            if(minutos < 0){
+                horas -= 1;
+                minutos *= -1;
+            }
+
+            var result = horas += "";
+            
+            if(minutos != 0){
+                result += ":" + minutos
+            }
+
+            return result += " Horas";
+
         }
     };
 
@@ -122,8 +140,8 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
 
         var findCid = function(id){
             for(var i = 0; i < $scope.cids.length; i++){
-                if($scope.cids[id].id == id){
-                    return $scope.cids[id].codigo;
+                if($scope.cids[i].id == id){
+                    return $scope.cids[id - 1].codigo;
                 }
             }
         };
@@ -132,6 +150,7 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
         $scope.atestado = atestado;
         $scope.display.func = atestado.funcionario.nome;
         $scope.display.cid = findCid(atestado.cid_id);
+        $scope.at.tipo = atestado.tipo;
         $('#modalEditaAtestado').openModal();
 
     };
@@ -139,6 +158,7 @@ app.controller('AtestadoController', function($scope, $filter, resourceFuncionar
     $scope.fechaAtestado = function(atestado){
         $('#modalEditaAtestado').closeModal();
         $scope.atestado = {};
+        $scope.display = {};
     }
 
 });

@@ -1,6 +1,6 @@
 var app = angular.module('ambulatorio', ['ngRoute', 'servicos', 'ui.materialize', 'ngMask', 'ui.select', 'ngSanitize',
     'ngAnimate'])
-    .config(function($routeProvider){
+    .config(function($routeProvider, $httpProvider){
         $routeProvider.when('/atendimento', {
             templateUrl: '/views/atendimento.html',
             controller: 'AtendimentoController'
@@ -16,4 +16,6 @@ var app = angular.module('ambulatorio', ['ngRoute', 'servicos', 'ui.materialize'
         });
 
         $routeProvider.otherwise({redirectTo: '/home'});
+
+        $httpProvider.interceptors.push('tokenInterceptor');
     });
